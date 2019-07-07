@@ -10,7 +10,8 @@ type Server struct {
 	*httptest.Server
 }
 
-// NewServer creates a new HTTP Test Server with the supplyed handler
+// NewServer creates a new HTTP TestServer with the supplyed handler
+// It is immediately initialized and can be reached at Server.URL
 func NewServer(router http.Handler) *Server {
 	return &Server{
 		Server: httptest.NewServer(router),

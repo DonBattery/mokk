@@ -15,8 +15,10 @@ type BasicErrorHandler struct{}
 func (h *BasicErrorHandler) HandleError(res http.ResponseWriter, req *http.Request, status int, err error) {
 	res.WriteHeader(status)
 	if err != nil {
-		_, writeErr := res.Write([]byte(fmt.Sprintf("Error: %s\n", err.Error())))
-		panic(writeErr)
+		_, writeErr := fmt.Fprintf(res, "Status: %d Error: %s\n", status, err.Error())
+		if writeErr != nil {
+			panic(writeErr)
+		}
 	}
 }
 
