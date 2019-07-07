@@ -1,0 +1,88 @@
+---
+# GolangCI-Lint configs
+# Find the details on how to configure golangci-lint at https://github.com/golangci/golangci-lint#configuration
+
+run:
+  deadline: 4m
+  issues-exit-code: 1
+  tests: true
+  skip-dirs:
+    - vendor
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+
+
+linters-settings:
+  errcheck:
+    check-type-assertions: false
+    check-blank: false
+
+  govet:
+    check-shadowing: true
+    settings:
+      printf:
+        funcs:
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Infof
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Warnf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Errorf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf
+
+  golint:
+    min-confidence: 0.8
+
+  gofmt:
+    simplify: true
+
+  goimports:
+    local-prefixes: github.com/bitrise-io/testman
+
+  gocyclo:
+    min-complexity: 10
+
+  maligned:
+    suggest-new: true
+
+  dupl:
+    threshold: 100
+
+  goconst:
+    min-len: 3
+    min-occurrences: 3
+
+  depguard:
+    list-type: blacklist
+    include-go-root: false
+    packages:
+      - github.com/davecgh/go-spew/spew
+
+  misspell:
+    locale: US
+    ignore-words:
+      - someword
+
+  lll:
+    line-length: 120
+    tab-width: 1
+
+  unused:
+    check-exported: false
+
+  unparam:
+    check-exported: false
+
+  nakedret:
+    max-func-lines: 10
+
+  prealloc:
+    simple: true
+    range-loops: true  # Report preallocation suggestions on range loops, true by default
+    for-loops: false  # Report preallocation suggestions on for loops, false by default
+
+linters:
+  enable-all: true
+  fast: false
+
+...
