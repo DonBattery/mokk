@@ -1,6 +1,7 @@
 package server
 
 import (
+	"bytes"
 	"net/http"
 	"testing"
 
@@ -60,6 +61,21 @@ func TestHeader(t *testing.T) {
 	request, err := http.NewRequest("GET", srv.URL+"/test/header", nil)
 	require.NoError(t, err, "Test request should be created")
 	request.Header.Add("Auth", "Pass")
+	resp, getErr := client.Do(request)
+	require.NoError(t, getErr, "Test server shouldn't return any errors")
+	defer resp.Body.Close()
+}
+
+func TestRequestBody(t *testing.T) {
+	t.Log("Testing POST request with required body...")
+	srv := NewTestServer(t)
+	srv.Handle("/test/body$", "POST", srv.Handler().WithRequestBody([]byte("Testing body")))
+	srv.Init()
+	defer srv.Close()
+
+	client := http.Client{}
+	request, err := http.NewRequest("POST", srv.URL+"/test/body", bytes.NewReader([]byte("Testing body")))
+	require.NoError(t, err, "Test request should be created")
 	resp, getErr := client.Do(request)
 	require.NoError(t, getErr, "Test server shouldn't return any errors")
 	defer resp.Body.Close()

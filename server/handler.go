@@ -143,7 +143,7 @@ func (handler *TestHandler) ServeHTTP(res http.ResponseWriter, req *http.Request
 			http.StatusBadRequest,
 			errors.Errorf(
 				"Required request body does not match with the actual request body.\nRequired:\n%s\nActual:\n%s\n",
-				handler.responseBody,
+				handler.requestBody,
 				reqBody))
 		return
 	}
