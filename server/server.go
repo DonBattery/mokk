@@ -6,6 +6,7 @@ import (
 	"testing"
 )
 
+// Server is a wrapper for httptest.Server
 type Server struct {
 	*httptest.Server
 }
@@ -18,6 +19,7 @@ func NewServer(router http.Handler) *Server {
 	}
 }
 
+// TestServer is a wrapper for Server created in a testing context
 type TestServer struct {
 	*Server
 	router *Router
