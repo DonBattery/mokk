@@ -21,7 +21,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestMultipleGet(t *testing.T) {
-	t.Log("Testing simple GET request...")
+	t.Log("Testing multiple GET requests...")
 	srv := NewTestServer(t)
 	srv.Handle("/test/get$", "GET", srv.Handler())
 	srv.Handle("/test/get2$", "GET", srv.Handler())
