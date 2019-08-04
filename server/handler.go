@@ -66,7 +66,7 @@ func (handler *TestHandler) ServeHTTP(res http.ResponseWriter, req *http.Request
 		)
 		return
 	}
-	if !bytes.Equal(reqBody, handler.requestBody) {
+	if handler.requestBody != nil && !bytes.Equal(reqBody, handler.requestBody) {
 		handler.errorHandler.HandleError(
 			res,
 			req,
