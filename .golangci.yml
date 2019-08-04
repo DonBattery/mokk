@@ -40,7 +40,7 @@ linters-settings:
     local-prefixes: github.com/bitrise-io/testman
 
   gocyclo:
-    min-complexity: 10
+    min-complexity: 11
 
   maligned:
     suggest-new: true
